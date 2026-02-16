@@ -1,3 +1,11 @@
+// Early splash screen hiding (fallback)
+setTimeout(() => {
+  const splash = document.getElementById('splashScreen');
+  const container = document.getElementById('authContainer');
+  if (splash) splash.classList.add('hidden');
+  if (container) container.classList.add('show');
+}, 2000);
+
 // Import Firebase functions
 import { 
   auth, 
@@ -47,12 +55,6 @@ function setLoading(buttonId, isLoading) {
 
 // DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
-  
-  // Hide splash screen and show auth container
-  setTimeout(() => {
-    document.getElementById('splashScreen').classList.add('hidden');
-    document.getElementById('authContainer').classList.add('show');
-  }, 1500);
 
   // Tab Switching
   const tabButtons = document.querySelectorAll('.tab-btn');
