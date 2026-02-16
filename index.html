@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/439q4yegy/43nvcrgdv/file_000000002d7861f790e0a30bec5f8c7a.png" />
+  
+  <!-- SEO Meta Tags -->
+  <title>ExamShaala – MHT CET LAW, NEET, JEE, GATE, BITS & Programming Hub</title>
+  <meta name="description" content="ExamShaala is your all-in-one student hub for MHT CET LAW, NEET, JEE, GATE, MHT CET, BITS Pilani prep, and programming mastery (Java, Python, C, C#, Ruby, Web Dev, AI). Access study notes, PYQs, most important questions, and much more. #EasyHaiSab">
+  <meta name="keywords" content="MHT CET LAW, NEET preparation, JEE study material, GATE exam notes, BITS Pilani entrance, competitive exam preparation, programming tutorials, Java, Python, C programming, web development, AI tools, PYQs, previous year questions, study notes, exam preparation, student hub, ExamShaala">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+  <!-- Splash Screen -->
+  <div class="splash-screen" id="splashScreen">
+    <div class="spinner"></div>
+    <p class="splash-text">Loading ExamShaala...</p>
+  </div>
 
+  <!-- Main Auth Container -->
+  <div class="auth-container" id="authContainer">
+    
+    <!-- Brand Section -->
+    <div class="brand-section">
+      <div class="brand-content">
+        <div class="brand-logo">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h1 class="brand-title">ExamShaala</h1>
+        <p class="brand-tagline">#EasyHaiSab</p>
+        <p class="brand-subtitle">Mega Student Hub</p>
+        
+        <div class="brand-description">
+          <p>Your all-in-one platform for:</p>
+        </div>
+        
+        <ul class="brand-features">
+          <li><i class="fas fa-check-circle"></i> MHT CET LAW</li>
+          <li><i class="fas fa-check-circle"></i> NEET</li>
+          <li><i class="fas fa-check-circle"></i> JEE</li>
+          <li><i class="fas fa-check-circle"></i> GATE</li>
+          <li><i class="fas fa-check-circle"></i> MHT CET (Normal)</li>
+          <li><i class="fas fa-check-circle"></i> BITS Pilani</li>
+          <li><i class="fas fa-check-circle"></i> Java, C, C#, Ruby</li>
+          <li><i class="fas fa-check-circle"></i> Web Development</li>
+          <li><i class="fas fa-check-circle"></i> Python & AI Tools</li>
+          <li><i class="fas fa-check-circle"></i> And Much More...</li>
+        </ul>
+
+        <div class="brand-highlights">
+          <p><strong>Features:</strong></p>
+          <p>Notes 📚 Study Material 📖 Most Important Questions • PYQs 📄 Much More…</p>
+        </div>
+
+        <div class="telegram-premium">
+          <p>
+            <svg class="telegram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+            </svg>
+            Message <strong>@ragexking</strong> on Telegram to unlock premium access
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="login">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+        <button class="tab-btn" data-tab="register">
+          <i class="fas fa-user-plus"></i> Sign Up
+        </button>
+      </div>
+
+      <!-- Login Tab -->
+      <div class="tab-content active" id="login-tab">
+        <div class="form-header">
+          <h2>Welcome Back!</h2>
+          <p>Sign in to access your learning dashboard</p>
+        </div>
+
+        <div id="loginAlert" class="alert-container"></div>
+
+        <form class="auth-form" id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input 
+                type="email" 
+                id="loginEmail" 
+                class="form-input" 
+                placeholder="your@email.com"
+                required
+                autocomplete="email"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input 
+                type="password" 
+                id="loginPassword" 
+                class="form-input" 
+                placeholder="Enter your password"
+                required
+                autocomplete="current-password"
+              >
+            </div>
+          </div>
+
+          <div class="form-options">
+            <a href="#" class="forgot-password" id="forgotPasswordLink">
+              <i class="fas fa-question-circle"></i> Forgot Password?
+            </a>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="loginBtn">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+        </form>
+      </div>
+
+      <!-- Register Tab -->
+      <div class="tab-content" id="register-tab">
+        <div class="form-header">
+          <h2>Create Account</h2>
+          <p>Join thousands of students preparing for success</p>
+        </div>
+
+        <div id="registerAlert" class="alert-container"></div>
+
+        <form class="auth-form" id="registerForm">
+          <div class="form-group">
+            <label for="registerFullName">Full Name</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user"></i>
+              <input 
+                type="text" 
+                id="registerFullName" 
+                class="form-input" 
+                placeholder="Enter your full name"
+                required
+                autocomplete="name"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="registerEmail">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input 
+                type="email" 
+                id="registerEmail" 
+                class="form-input" 
+                placeholder="your@email.com"
+                required
+                autocomplete="email"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="registerPassword">Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input 
+                type="password" 
+                id="registerPassword" 
+                class="form-input" 
+                placeholder="Create a strong password (min. 6 characters)"
+                required
+                autocomplete="new-password"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="registerExamCategory">Exam Category <span class="optional">(Optional)</span></label>
+            <div class="input-wrapper">
+              <i class="fas fa-book-open"></i>
+              <select id="registerExamCategory" class="form-select">
+                <option value="">Select your primary interest</option>
+                <option value="MHT CET LAW">MHT CET LAW</option>
+                <option value="NEET">NEET</option>
+                <option value="JEE">JEE (Main/Advanced)</option>
+                <option value="GATE">GATE</option>
+                <option value="MHT CET">MHT CET (Engineering)</option>
+                <option value="BITS Pilani">BITS Pilani</option>
+                <option value="Java">Java Programming</option>
+                <option value="C">C Programming</option>
+                <option value="C#">C# Programming</option>
+                <option value="Ruby">Ruby Programming</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Python & AI">Python & AI Tools</option>
+                <option value="Other">Other / Exploring</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="registerBtn">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module" src="firebase.js"></script>
+  
+  <!-- UI Logic -->
+  <script src="script.js"></script>
+
+</body>
+</html>
