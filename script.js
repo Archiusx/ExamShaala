@@ -1,23 +1,39 @@
-// Early splash screen hiding (fallback)
-setTimeout(() => {
-  const splash = document.getElementById('splashScreen');
-  const container = document.getElementById('authContainer');
-  if (splash) splash.classList.add('hidden');
-  if (container) container.classList.add('show');
-}, 2000);
-
-// Import Firebase functions
+// Import Firebase SDK modules
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
 import { 
-  auth, 
-  db, 
+  getAuth, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
   sendPasswordResetEmail,
   updateProfile,
-  doc,
+  onAuthStateChanged
+} from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+import { 
+  getFirestore, 
+  doc, 
   setDoc,
-  serverTimestamp
-} from './firebase.js';
+  getDoc,
+  serverTimestamp 
+} from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyD_4_adS0YQs8bGMbEvNSpLpW3BpCdvIAU",
+  authDomain: "mark1-7ce7e.firebaseapp.com",
+  projectId: "mark1-7ce7e",
+  storageBucket: "mark1-7ce7e.appspot.com",
+  messagingSenderId: "147908886392",
+  appId: "1:147908886392:web:7d209960ba65868172128d",
+  measurementId: "G-6J34J730EW"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
 
 // Utility Functions
 function showAlert(containerId, message, type = 'error') {
@@ -32,7 +48,6 @@ function showAlert(containerId, message, type = 'error') {
     </div>
   `;
   
-  // Auto-hide after 5 seconds
   setTimeout(() => {
     container.innerHTML = '';
   }, 5000);
@@ -44,42 +59,73 @@ function setLoading(buttonId, isLoading) {
   if (isLoading) {
     button.disabled = true;
     button.classList.add('btn-loading');
-    button.dataset.originalText = button.innerHTML;
-    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
   } else {
     button.disabled = false;
     button.classList.remove('btn-loading');
-    button.innerHTML = button.dataset.originalText || button.innerHTML;
+  }
+}
+
+// Create/Update user profile in Firestore
+async function createOrUpdateUserProfile(user, examCategory = '') {
+  try {
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+    
+    if (!userSnap.exists()) {
+      // New user - create profile
+      const userProfile = {
+        uid: user.uid,
+        fullName: user.displayName || 'Student',
+        email: user.email,
+        examCategory: examCategory || 'Not specified',
+        createdAt: serverTimestamp(),
+        lastLogin: serverTimestamp(),
+        role: 'student',
+        verified: false,
+        platform: 'ExamShaala',
+        authProvider: user.providerData[0]?.providerId || 'password'
+      };
+      await setDoc(userRef, userProfile);
+    } else {
+      // Existing user - update last login
+      await setDoc(userRef, {
+        lastLogin: serverTimestamp()
+      }, { merge: true });
+    }
+  } catch (error) {
+    console.error('Error creating/updating user profile:', error);
   }
 }
 
 // DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
-
+  
   // Tab Switching
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
+  const tabSwitches = document.querySelectorAll('.tab-switch');
+  const formContainers = document.querySelectorAll('.form-container');
 
-  tabButtons.forEach(button => {
+  tabSwitches.forEach(button => {
     button.addEventListener('click', () => {
       const targetTab = button.getAttribute('data-tab');
       
-      // Remove active class from all tabs and contents
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
+      // Remove active class from all
+      tabSwitches.forEach(btn => btn.classList.remove('active'));
+      formContainers.forEach(form => form.classList.remove('active'));
       
-      // Add active class to clicked tab and corresponding content
+      // Add active class
       button.classList.add('active');
-      document.getElementById(`${targetTab}-tab`).classList.add('active');
+      document.getElementById(`${targetTab}-form`).classList.add('active');
       
-      // Clear alerts when switching tabs
+      // Clear alerts
       document.getElementById('loginAlert').innerHTML = '';
       document.getElementById('registerAlert').innerHTML = '';
     });
   });
 
-  // Sign Up Handler
-  document.getElementById("registerForm").addEventListener("submit", async (e) => {
+  // =====================================
+  // EMAIL/PASSWORD SIGN UP
+  // =====================================
+  document.getElementById("registerFormElement").addEventListener("submit", async (e) => {
     e.preventDefault();
     
     const fullName = document.getElementById("registerFullName").value.trim();
@@ -110,36 +156,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       
-      // Update Firebase Auth display name
+      // Update display name
       await updateProfile(user, {
         displayName: fullName
       });
 
       // Create user profile in Firestore
-      const userProfile = {
-        uid: user.uid,
-        fullName: fullName,
-        email: email,
-        examCategory: examCategory || 'Not specified',
-        createdAt: serverTimestamp(),
-        lastLogin: serverTimestamp(),
-        role: 'student',
-        verified: false,
-        platform: 'ExamShaala'
-      };
-
-      await setDoc(doc(db, "users", user.uid), userProfile);
+      await createOrUpdateUserProfile(user, examCategory);
       
-      showAlert('registerAlert', 'Account created successfully! You can now sign in.', 'success');
+      showAlert('registerAlert', 'Account created successfully! Redirecting...', 'success');
       
-      // Switch to login tab after 2 seconds and pre-fill email
       setTimeout(() => {
-        document.querySelector('[data-tab="login"]').click();
-        document.getElementById('loginEmail').value = email;
-      }, 2000);
-      
-      // Clear form
-      document.getElementById("registerForm").reset();
+        window.location.href = "/dashboard.html";
+      }, 1500);
       
     } catch (error) {
       console.error('Registration error:', error);
@@ -161,8 +190,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Sign In Handler
-  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  // =====================================
+  // EMAIL/PASSWORD SIGN IN
+  // =====================================
+  document.getElementById("loginFormElement").addEventListener("submit", async (e) => {
     e.preventDefault();
     
     const email = document.getElementById("loginEmail").value.trim();
@@ -179,14 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       
-      // Update last login in Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        lastLogin: serverTimestamp()
-      }, { merge: true });
+      // Update last login
+      await createOrUpdateUserProfile(user);
       
       showAlert('loginAlert', 'Login successful! Redirecting...', 'success');
       
-      // Redirect to dashboard after 1.5 seconds
       setTimeout(() => {
         window.location.href = "/dashboard.html";
       }, 1500);
@@ -215,7 +243,83 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Forgot Password Handler
+  // =====================================
+  // GOOGLE SIGN IN (Login Page)
+  // =====================================
+  document.getElementById("googleSignInBtn").addEventListener("click", async () => {
+    setLoading('googleSignInBtn', true);
+    
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      
+      // Create or update user profile
+      await createOrUpdateUserProfile(user);
+      
+      showAlert('loginAlert', 'Signed in with Google! Redirecting...', 'success');
+      
+      setTimeout(() => {
+        window.location.href = "/dashboard.html";
+      }, 1500);
+      
+    } catch (error) {
+      console.error('Google Sign-In error:', error);
+      let errorMessage = 'Failed to sign in with Google. Please try again.';
+      
+      if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = 'Sign-in cancelled. Please try again.';
+      } else if (error.code === 'auth/network-request-failed') {
+        errorMessage = 'Network error. Please check your internet connection.';
+      } else if (error.code === 'auth/popup-blocked') {
+        errorMessage = 'Popup blocked. Please allow popups for this site.';
+      }
+      
+      showAlert('loginAlert', errorMessage);
+    } finally {
+      setLoading('googleSignInBtn', false);
+    }
+  });
+
+  // =====================================
+  // GOOGLE SIGN UP (Register Page)
+  // =====================================
+  document.getElementById("googleSignUpBtn").addEventListener("click", async () => {
+    setLoading('googleSignUpBtn', true);
+    
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      
+      // Create or update user profile
+      await createOrUpdateUserProfile(user);
+      
+      showAlert('registerAlert', 'Signed up with Google! Redirecting...', 'success');
+      
+      setTimeout(() => {
+        window.location.href = "/dashboard.html";
+      }, 1500);
+      
+    } catch (error) {
+      console.error('Google Sign-Up error:', error);
+      let errorMessage = 'Failed to sign up with Google. Please try again.';
+      
+      if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = 'Sign-up cancelled. Please try again.';
+      } else if (error.code === 'auth/network-request-failed') {
+        errorMessage = 'Network error. Please check your internet connection.';
+      } else if (error.code === 'auth/popup-blocked') {
+        errorMessage = 'Popup blocked. Please allow popups for this site.';
+      }
+      
+      showAlert('registerAlert', errorMessage);
+    } finally {
+      setLoading('googleSignUpBtn', false);
+    }
+  });
+
+  // =====================================
+  // FORGOT PASSWORD
+  // =====================================
   document.getElementById("forgotPasswordLink").addEventListener("click", async (e) => {
     e.preventDefault();
     const email = document.getElementById("loginEmail").value.trim();
@@ -227,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     try {
       await sendPasswordResetEmail(auth, email);
-      showAlert('loginAlert', 'Password reset email sent! Please check your inbox.', 'success');
+      showAlert('loginAlert', 'Password reset email sent! Check your inbox.', 'success');
     } catch (error) {
       console.error('Password reset error:', error);
       let errorMessage = 'Failed to send reset email. Please try again.';
@@ -244,67 +348,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Enter key support for both forms
-  document.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      const activeTab = document.querySelector('.tab-content.active');
-      if (activeTab.id === 'login-tab') {
-        document.getElementById('loginBtn').click();
-      } else if (activeTab.id === 'register-tab') {
-        document.getElementById('registerBtn').click();
-      }
-    }
-  });
-
-  // Intersection Observer for animated feature list
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.animationPlayState = 'running';
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.brand-features li').forEach((item, index) => {
-    item.style.animationDelay = `${index * 0.1}s`;
-    observer.observe(item);
-  });
-
-  // Input Focus Effects
-  const inputs = document.querySelectorAll('.form-input, .form-select');
-  inputs.forEach(input => {
-    input.addEventListener('focus', () => {
-      input.parentElement.style.transform = 'scale(1.02)';
-      input.parentElement.style.transition = 'transform 0.3s ease';
-    });
-    
-    input.addEventListener('blur', () => {
-      input.parentElement.style.transform = 'scale(1)';
-    });
-  });
-
-  // Button Hover Effects
-  const buttons = document.querySelectorAll('.btn');
-  buttons.forEach(button => {
-    button.addEventListener('mouseenter', () => {
-      if (!button.disabled) {
-        button.style.transform = 'translateY(-2px) scale(1.02)';
-      }
-    });
-    
-    button.addEventListener('mouseleave', () => {
-      if (!button.disabled) {
-        button.style.transform = 'translateY(0) scale(1)';
-      }
-    });
-  });
-
-  // Email validation on input
+  // =====================================
+  // INPUT ENHANCEMENTS
+  // =====================================
+  
+  // Email validation
   const emailInputs = document.querySelectorAll('input[type="email"]');
   emailInputs.forEach(input => {
     input.addEventListener('blur', () => {
@@ -320,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  // Password strength indicator (optional enhancement)
+  // Password strength indicator
   const passwordInput = document.getElementById('registerPassword');
   if (passwordInput) {
     passwordInput.addEventListener('input', (e) => {
@@ -337,5 +385,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  console.log('ExamShaala Auth System Initialized ✓');
+  // Enter key support
+  document.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const activeForm = document.querySelector('.form-container.active');
+      if (activeForm.id === 'login-form') {
+        document.getElementById('loginBtn').click();
+      } else if (activeForm.id === 'register-form') {
+        document.getElementById('registerBtn').click();
+      }
+    }
+  });
+
+  console.log('✅ ExamShaala Auth System Initialized');
+});
+
+// Auth State Observer
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log('User signed in:', user.email);
+    // Optional: Auto-redirect if already logged in
+    // window.location.href = "/dashboard.html";
+  } else {
+    console.log('No user signed in');
+  }
 });
