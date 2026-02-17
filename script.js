@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
       await saveUserProfile(result.user);
       
       showAlert('loginAlert', 'Login successful! Redirecting...', 'success');
-      setTimeout(() => window.location.href = '/dashboard.html', 1500);
+      setTimeout(() => window.location.href = '/index.html', 1500);
       
     } catch (error) {
       let msg = 'Login failed. Please check credentials.';
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
       await saveUserProfile(result.user, exam);
       
       showAlert('signupAlert', 'Account created! Redirecting...', 'success');
-      setTimeout(() => window.location.href = '/dashboard.html', 1500);
+      setTimeout(() => window.location.href = '/index.html', 1500);
       
     } catch (error) {
       let msg = 'Signup failed. Please try again.';
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
       await saveUserProfile(result.user);
       
       showAlert('loginAlert', 'Signed in with Google! Redirecting...', 'success');
-      setTimeout(() => window.location.href = '/dashboard.html', 1500);
+      setTimeout(() => window.location.href = '/index.html', 1500);
       
     } catch (error) {
       let msg = 'Google sign-in failed.';
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
       await saveUserProfile(result.user);
       
       showAlert('signupAlert', 'Signed up with Google! Redirecting...', 'success');
-      setTimeout(() => window.location.href = '/dashboard.html', 1500);
+      setTimeout(() => window.location.href = '/index.html', 1500);
       
     } catch (error) {
       let msg = 'Google sign-up failed.';
