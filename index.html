@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIT Node — Student Hub Dashboard</title>
+  <meta name="description" content="BIT Node – Your all-in-one student platform for exam prep, coding, and community." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header" id="pageHeader">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo-section">
+        <img src="https://uploads.onecompiler.io/439q4yegy/43nvcrgdv/file_000000002d7861f790e0a30bec5f8c7a.png"
+             alt="BIT Node Logo" class="logo" />
+        <div class="brand-text">
+          <h1>BIT Node</h1>
+          <p>Programming &amp; Development Hub</p>
+        </div>
+      </div>
+      <nav class="desktop-nav">
+        <a href="#exams" class="nav-link">Exams</a>
+        <a href="#coding" class="nav-link">Coding</a>
+        <a href="#languages" class="nav-link">Languages</a>
+        <a href="#community" class="nav-link">Community</a>
+        <a href="#about" class="nav-link">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="notification-btn" id="notificationBtn" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge" id="notifBadge">3</span>
+        </button>
+        <div class="user-chip" id="userChip" style="display:none;">
+          <div class="user-avatar-small" id="userAvatarSmall">U</div>
+          <span id="userDisplayName">Student</span>
+          <button class="signout-btn" id="signOutBtn" title="Sign Out"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+        <div id="authBtns" class="auth-btns">
+          <a href="auth.html" class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+          <a href="auth.html" class="btn btn-primary"><i class="fas fa-user-plus"></i> Get Started</a>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#exams" class="mobile-nav-link">📚 Exams</a>
+  <a href="#coding" class="mobile-nav-link">💻 Coding</a>
+  <a href="#languages" class="mobile-nav-link">🌐 Languages</a>
+  <a href="#community" class="mobile-nav-link">👥 Community</a>
+  <a href="#about" class="mobile-nav-link">ℹ️ About</a>
+  <a href="auth.html" class="mobile-nav-link mobile-signin">🔑 Sign In / Register</a>
+</div>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notification-panel" id="notificationPanel">
+  <div class="notification-header">
+    <h3><i class="fas fa-bell"></i> Notifications</h3>
+    <p id="notifHeaderText">You have 3 unread notifications</p>
+    <button class="notification-close" id="notificationClose"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="notification-list">
+    <div class="notification-item unread">
+      <div class="notification-item-header">
+        <div class="notification-icon info"><i class="fas fa-info-circle"></i></div>
+        <div class="notification-title">Semester II Timetable Updated</div>
+        <div class="notification-time">2h ago</div>
+      </div>
+      <div class="notification-text">The semester II timetable has been updated. Check the academic portal for details.</div>
+    </div>
+    <div class="notification-item unread">
+      <div class="notification-item-header">
+        <div class="notification-icon success"><i class="fas fa-check-circle"></i></div>
+        <div class="notification-title">Digital Library Access Available</div>
+        <div class="notification-time">5h ago</div>
+      </div>
+      <div class="notification-text">You now have access to 500+ books and research papers in the digital library.</div>
+    </div>
+    <div class="notification-item unread">
+      <div class="notification-item-header">
+        <div class="notification-icon warning"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="notification-title">Physics Important Questions Available</div>
+        <div class="notification-time">1d ago</div>
+      </div>
+      <div class="notification-text">Physics important questions for the upcoming exam are now available for download.</div>
+    </div>
+    <div class="notification-item">
+      <div class="notification-item-header">
+        <div class="notification-icon info"><i class="fas fa-robot"></i></div>
+        <div class="notification-title">AI Assistant Now Live</div>
+        <div class="notification-time">3d ago</div>
+      </div>
+      <div class="notification-text">Piyux.ai is now available for 24/7 academic assistance.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg-orb orb1"></div>
+  <div class="hero-bg-orb orb2"></div>
+  <div class="hero-bg-orb orb3"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-bolt"></i>&nbsp; Live · BIT Wardha Student Platform</div>
+      <h2 class="hero-title">Your Gateway to<br><span class="gradient-text">Digital Excellence</span></h2>
+      <p class="hero-subtitle">Code. Learn. Collaborate. Deploy.</p>
+      <p class="hero-desc">One platform for exam prep, coding, languages, and community — built for BIT students by BIT students.</p>
+      <div class="hero-cta">
+        <a href="#exams" class="btn btn-primary btn-lg"><i class="fas fa-rocket"></i> Explore Platform</a>
+        <a href="auth.html" class="btn btn-outline btn-lg"><i class="fas fa-user-plus"></i> Join Free</a>
+        <a href="https://t.me/ragexking" target="_blank" rel="noopener" class="btn btn-telegram btn-lg">
+          <i class="fab fa-telegram"></i> Buy Course
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num-wrap"><span class="stat-num" data-target="200">0</span><span class="stat-plus">+</span></div>
+        <span class="stat-label">Students Active</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <div class="stat-num-wrap"><span class="stat-num" data-target="18">0</span><span class="stat-plus">+</span></div>
+        <span class="stat-label">Languages</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <div class="stat-num-wrap"><span class="stat-num" data-target="6">0</span><span class="stat-plus">+</span></div>
+        <span class="stat-label">Exam Categories</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <div class="stat-num-wrap"><span class="stat-num" data-target="500">0</span><span class="stat-plus">+</span></div>
+        <span class="stat-label">Digital Resources</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EXAM PREP ═══ -->
+<section class="section" id="exams">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fas fa-graduation-cap"></i> Exam Prep</span>
+      <h3>Entrance &amp; Academic Exams</h3>
+      <p>Dedicated modules for every exam you're targeting — structured, updated, and comprehensive.</p>
+    </div>
+    <div class="nav-grid">
+
+      <a href="mht-cet-law.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#7c3aed,#a855f7)"><i class="fas fa-gavel"></i></div>
+          <div>
+            <h3>MHT CET Law</h3>
+            <span class="card-badge" style="background:rgba(124,58,237,0.2);color:#c4b5fd">Entrance Exam</span>
+          </div>
+        </div>
+        <p>Comprehensive prep for MHT CET Law — syllabus breakdown, PYQs, mock tests, legal aptitude, and current affairs resources.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Legal Aptitude</li>
+          <li><i class="fas fa-check"></i> General Knowledge</li>
+          <li><i class="fas fa-check"></i> English Proficiency</li>
+          <li><i class="fas fa-check"></i> Mock Tests &amp; PYQs</li>
+        </ul>
+        <div class="card-footer-link">Open Module <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="jee.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#2563eb,#60a5fa)"><i class="fas fa-atom"></i></div>
+          <div>
+            <h3>JEE Main &amp; Advanced</h3>
+            <span class="card-badge" style="background:rgba(37,99,235,0.2);color:#93c5fd">Engineering Entrance</span>
+          </div>
+        </div>
+        <p>Full JEE prep — Physics, Chemistry, Mathematics with topic-wise notes, formula sheets, 30-year PYQs, and mock tests.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Physics · Chemistry · Maths</li>
+          <li><i class="fas fa-check"></i> 30-Year PYQs</li>
+          <li><i class="fas fa-check"></i> Topic-wise Mock Tests</li>
+          <li><i class="fas fa-check"></i> Formula Sheets &amp; Notes</li>
+        </ul>
+        <div class="card-footer-link">Open Module <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="neet.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#16a34a,#4ade80)"><i class="fas fa-heartbeat"></i></div>
+          <div>
+            <h3>NEET UG</h3>
+            <span class="card-badge" style="background:rgba(22,163,74,0.2);color:#86efac">Medical Entrance</span>
+          </div>
+        </div>
+        <p>Complete NEET preparation with Biology, Physics &amp; Chemistry — NCERT-based notes, diagrams, PYQs, and chapter-wise analysis.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Biology (Botany &amp; Zoology)</li>
+          <li><i class="fas fa-check"></i> Physics &amp; Chemistry</li>
+          <li><i class="fas fa-check"></i> NCERT Notes &amp; Diagrams</li>
+          <li><i class="fas fa-check"></i> Full Syllabus Mock Tests</li>
+        </ul>
+        <div class="card-footer-link">Open Module <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="mht-cet-eng.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#ea580c,#fb923c)"><i class="fas fa-cogs"></i></div>
+          <div>
+            <h3>MHT CET Engineering</h3>
+            <span class="card-badge" style="background:rgba(234,88,12,0.2);color:#fdba74">State Entrance</span>
+          </div>
+        </div>
+        <p>MHT CET Engineering prep — PCM syllabus, state-level PYQs, chapter-wise tests, and Maharashtra college cutoff analysis.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> PCM Full Syllabus</li>
+          <li><i class="fas fa-check"></i> Maharashtra PYQs</li>
+          <li><i class="fas fa-check"></i> College Cutoff Analysis</li>
+          <li><i class="fas fa-check"></i> Rank Predictor</li>
+        </ul>
+        <div class="card-footer-link">Open Module <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="btech-cs.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#0891b2,#22d3ee)"><i class="fas fa-laptop-code"></i></div>
+          <div>
+            <h3>B.Tech CS Engineering</h3>
+            <span class="card-badge" style="background:rgba(8,145,178,0.2);color:#67e8f9">Year 1–4</span>
+          </div>
+        </div>
+        <p>Complete B.Tech CS resources — semester-wise notes, lab manuals, university PYQs, project ideas, and internship guidance for all 4 years.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Semester-wise Notes</li>
+          <li><i class="fas fa-check"></i> Lab Manuals &amp; Practicals</li>
+          <li><i class="fas fa-check"></i> University PYQs</li>
+          <li><i class="fas fa-check"></i> Project &amp; Internship Guide</li>
+        </ul>
+        <div class="card-footer-link">Open Module <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="bits-pilani.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#be185d,#f472b6)"><i class="fas fa-university"></i></div>
+          <div>
+            <h3>BITS Pilani (BITSAT)</h3>
+            <span class="card-badge" style="background:rgba(190,24,93,0.2);color:#f9a8d4">Prestigious Entrance</span>
+          </div>
+        </div>
+        <p>BITSAT preparation — English proficiency, logical reasoning, PCM, and exclusive BITS-pattern mock tests with scoring strategies.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> BITSAT Pattern Tests</li>
+          <li><i class="fas fa-check"></i> English &amp; Reasoning</li>
+          <li><i class="fas fa-check"></i> PCM Advanced Topics</li>
+          <li><i class="fas fa-check"></i> Scoring Strategy Guide</li>
+        </ul>
+        <div class="card-footer-link">Open Module <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+    </div>
+
+    <!-- CTA Banner -->
+    <div class="cta-banner">
+      <div class="cta-text">
+        <h4>🚀 Want personalized coaching for any of these exams?</h4>
+        <p>Get access to live sessions, doubt solving, and complete study materials curated by experts.</p>
+      </div>
+      <a href="https://t.me/ragexking" target="_blank" rel="noopener" class="btn btn-telegram btn-lg">
+        <i class="fab fa-telegram"></i> Buy Course on Telegram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CODING ═══ -->
+<section class="section section-alt" id="coding">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge" style="background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3)">
+        <i class="fas fa-code"></i> Coding
+      </span>
+      <h3>Coding, Projects &amp; Hackathons</h3>
+      <p>Build real projects, compete in hackathons, and sharpen your skills across every domain.</p>
+    </div>
+    <div class="nav-grid">
+
+      <a href="coding-c.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#374151,#6b7280)"><i class="fas fa-terminal"></i></div>
+          <div><h3>C Programming</h3></div>
+        </div>
+        <p>From basics to pointers, data structures, and file handling — complete C programming with annotated programs and lab exercises.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> 100+ Programs</li>
+          <li><i class="fas fa-check"></i> Data Structures in C</li>
+          <li><i class="fas fa-check"></i> Lab Exercise Sets</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="coding-java.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#b45309,#f59e0b)"><i class="fab fa-java"></i></div>
+          <div><h3>Java Development</h3></div>
+        </div>
+        <p>Core Java, OOP, collections, multithreading, JDBC, and Spring Boot fundamentals with project-based learning.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Core &amp; Advanced Java</li>
+          <li><i class="fas fa-check"></i> Spring Boot Projects</li>
+          <li><i class="fas fa-check"></i> Interview Prep</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="coding-webdev.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6)"><i class="fas fa-globe"></i></div>
+          <div><h3>Web Development</h3></div>
+        </div>
+        <p>Full-stack web dev — HTML, CSS, JavaScript, React, NodeJS, MongoDB, REST APIs, and Netlify/Vercel deployment.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Frontend + Backend</li>
+          <li><i class="fas fa-check"></i> React &amp; NodeJS</li>
+          <li><i class="fas fa-check"></i> Project Deployment</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="coding-python.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#ca8a04,#facc15)"><i class="fab fa-python"></i></div>
+          <div><h3>Python</h3></div>
+        </div>
+        <p>Python scripting, OOP, Flask, Django basics, web scraping, and data analysis with Pandas &amp; NumPy.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Scripting to Flask</li>
+          <li><i class="fas fa-check"></i> Data Analysis</li>
+          <li><i class="fas fa-check"></i> Automation Scripts</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="coding-aiml.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#6d28d9,#a78bfa)"><i class="fas fa-brain"></i></div>
+          <div><h3>AI / ML</h3></div>
+        </div>
+        <p>Machine learning, deep learning, neural networks, NLP, and computer vision with TensorFlow, PyTorch &amp; scikit-learn.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> ML Algorithms</li>
+          <li><i class="fas fa-check"></i> Deep Learning</li>
+          <li><i class="fas fa-check"></i> Real-world Projects</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="coding-telegram.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#0e7490,#06b6d4)"><i class="fab fa-telegram"></i></div>
+          <div><h3>Telegram Bots</h3></div>
+        </div>
+        <p>Build Telegram bots with Python — command bots, file bots, quiz bots, webhook integration, and free hosting deployment.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Bot API &amp; Webhooks</li>
+          <li><i class="fas fa-check"></i> 10+ Bot Projects</li>
+          <li><i class="fas fa-check"></i> Deployment Guide</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="coding-ruby.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#9f1239,#f43f5e)"><i class="fas fa-gem"></i></div>
+          <div><h3>Ruby</h3></div>
+        </div>
+        <p>Ruby programming fundamentals, Ruby on Rails basics, web app development, and RESTful API creation.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Ruby Fundamentals</li>
+          <li><i class="fas fa-check"></i> Rails Framework</li>
+          <li><i class="fas fa-check"></i> REST API Projects</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="coding-hackathons.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#166534,#22c55e)"><i class="fas fa-trophy"></i></div>
+          <div><h3>Hackathons</h3></div>
+        </div>
+        <p>Hackathon strategies, team tips, project ideas, pitch templates, and a curated list of upcoming national &amp; international hackathons.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> Upcoming Hackathons</li>
+          <li><i class="fas fa-check"></i> Project Templates</li>
+          <li><i class="fas fa-check"></i> Pitch Deck Guides</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="coding-others.html" class="nav-card">
+        <div class="nav-card-header">
+          <div class="nav-icon" style="background:linear-gradient(135deg,#374151,#9ca3af)"><i class="fas fa-ellipsis-h"></i></div>
+          <div><h3>Others</h3></div>
+        </div>
+        <p>C++, C#, PHP, Assembly, Lua, PL/SQL, Groovy, MongoDB, PostgreSQL, MySQL, React, NodeJS, and more specialized tools.</p>
+        <ul class="nav-card-features">
+          <li><i class="fas fa-check"></i> C++ &amp; C#</li>
+          <li><i class="fas fa-check"></i> Databases &amp; SQL</li>
+          <li><i class="fas fa-check"></i> Groovy, Lua, Assembly</li>
+        </ul>
+        <div class="card-footer-link">Open <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LANGUAGES ═══ -->
+<section class="section" id="languages">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge" style="background:rgba(245,158,11,0.15);color:#fbbf24;border-color:rgba(245,158,11,0.3)">
+        <i class="fas fa-layer-group"></i> Languages
+      </span>
+      <h3>Languages &amp; Technologies We Cover</h3>
+      <p>From beginner to advanced — every language you need to build, ship, and grow.</p>
+    </div>
+    <div class="lang-grid">
+      <div class="lang-card" onclick="location.href='coding-webdev.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+        <span>HTML</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-python.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+        <span>Python</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-webdev.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+        <span>JavaScript</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-java.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" />
+        <span>Java</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-others.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+        <span>MySQL</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-c.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C" />
+        <span>C</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-others.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" />
+        <span>C++</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-others.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" />
+        <span>PHP</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-others.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" />
+        <span>C#</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-others.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua" />
+        <span>Lua</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-webdev.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+        <span>React</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-webdev.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="NodeJS" />
+        <span>NodeJS</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-others.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+        <span>MongoDB</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-others.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />
+        <span>PostgreSQL</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-ruby.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="Ruby" />
+        <span>Ruby</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-aiml.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" />
+        <span>TensorFlow</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-telegram.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Telegram Bots" />
+        <span>Telegram Bots</span>
+      </div>
+      <div class="lang-card" onclick="location.href='coding-others.html'">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/groovy/groovy-original.svg" alt="Groovy" onerror="this.style.display='none'" />
+        <span>Groovy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUICK TOOLS ═══ -->
+<section class="section section-alt" id="tools">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge" style="background:rgba(99,102,241,0.15);color:#a5b4fc;border-color:rgba(99,102,241,0.3)">
+        <i class="fas fa-tools"></i> Quick Access
+      </span>
+      <h3>Platform Tools &amp; Features</h3>
+      <p>Everything you need in one click.</p>
+    </div>
+    <div class="tools-grid">
+      <a href="compiler.html" class="tool-card">
+        <i class="fas fa-terminal" style="color:#ec4899"></i>
+        <h4>Code Editor</h4>
+        <p>Write, run &amp; debug code online</p>
+      </a>
+      <a href="btech-cs.html" class="tool-card">
+        <i class="fas fa-book-open" style="color:#10b981"></i>
+        <h4>Learning Modules</h4>
+        <p>Structured courses &amp; tutorials</p>
+      </a>
+      <a href="#community" class="tool-card">
+        <i class="fas fa-users" style="color:#f59e0b"></i>
+        <h4>Community</h4>
+        <p>Connect with fellow students</p>
+      </a>
+      <a href="coding-aiml.html" class="tool-card">
+        <i class="fas fa-brain" style="color:#818cf8"></i>
+        <h4>AI / ML Lab</h4>
+        <p>Hands-on machine learning projects</p>
+      </a>
+      <a href="coding-hackathons.html" class="tool-card">
+        <i class="fas fa-trophy" style="color:#fbbf24"></i>
+        <h4>Hackathons</h4>
+        <p>Compete &amp; win nationally</p>
+      </a>
+      <a href="https://t.me/ragexking" target="_blank" rel="noopener" class="tool-card">
+        <i class="fab fa-telegram" style="color:#38bdf8"></i>
+        <h4>Telegram Channel</h4>
+        <p>Buy courses &amp; get daily updates</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMMUNITY ═══ -->
+<section class="section" id="community">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge" style="background:rgba(236,72,153,0.15);color:#f9a8d4;border-color:rgba(236,72,153,0.3)">
+        <i class="fas fa-users"></i> Community
+      </span>
+      <h3>Join the BIT Node Community</h3>
+      <p>Connect, collaborate, and grow with students across Maharashtra.</p>
+    </div>
+    <div class="community-grid">
+      <a href="https://t.me/ragexking" target="_blank" rel="noopener" class="community-card telegram-card">
+        <div class="community-icon"><i class="fab fa-telegram"></i></div>
+        <h4>Telegram</h4>
+        <p>Courses, resources &amp; daily exam updates. Join 200+ active BIT students.</p>
+        <span class="community-cta">Join Channel <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="https://instagram.com/spotify.piux" target="_blank" rel="noopener" class="community-card instagram-card">
+        <div class="community-icon"><i class="fab fa-instagram"></i></div>
+        <h4>Instagram</h4>
+        <p>Behind the scenes, student life, tips, and coding resources — follow for daily inspiration.</p>
+        <span class="community-cta">Follow Now <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="https://linkedin.com/in/piyushdeshkar" target="_blank" rel="noopener" class="community-card linkedin-card">
+        <div class="community-icon"><i class="fab fa-linkedin"></i></div>
+        <h4>LinkedIn</h4>
+        <p>Professional network, internship opportunities, and career guidance — connect with Piyush.</p>
+        <span class="community-cta">Connect <i class="fas fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="section section-alt" id="about">
+  <div class="container">
+    <div class="about-wrap">
+      <div class="about-text">
+        <span class="section-badge">About BIT Node</span>
+        <h3>Built for BIT Students,<br>By a BIT Student</h3>
+        <p>BIT Node is a comprehensive educational platform bringing together academic resources, programming tools, exam prep, and community — all in one unified, modern space.</p>
+        <p>Developed by <strong>Piyush Deshkar</strong>, Computer Engineering student at BIT Wardha, passionate about creating impactful educational technology for the student community.</p>
+        <div class="about-links">
+          <a href="https://instagram.com/spotify.piux" target="_blank" rel="noopener" class="about-link">
+            <i class="fab fa-instagram"></i> @spotify.piux
+          </a>
+          <a href="https://linkedin.com/in/piyushdeshkar" target="_blank" rel="noopener" class="about-link">
+            <i class="fab fa-linkedin"></i> piyushdeshkar
+          </a>
+          <a href="https://t.me/ragexking" target="_blank" rel="noopener" class="about-link">
+            <i class="fab fa-telegram"></i> @ragexking
+          </a>
+        </div>
+      </div>
+      <div class="about-stats">
+        <div class="about-stat-card">
+          <i class="fas fa-graduation-cap"></i>
+          <h4>6+ Exams</h4>
+          <p>Fully dedicated prep modules</p>
+        </div>
+        <div class="about-stat-card">
+          <i class="fas fa-code"></i>
+          <h4>18+ Languages</h4>
+          <p>From C to AI/ML</p>
+        </div>
+        <div class="about-stat-card">
+          <i class="fas fa-users"></i>
+          <h4>200+ Students</h4>
+          <p>Active on the platform</p>
+        </div>
+        <div class="about-stat-card">
+          <i class="fas fa-book"></i>
+          <h4>500+ Resources</h4>
+          <p>Notes, videos, and PYQs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section footer-brand">
+        <div class="footer-logo-wrap">
+          <img src="https://uploads.onecompiler.io/439q4yegy/43nvcrgdv/file_000000002d7861f790e0a30bec5f8c7a.png" alt="BIT Node" />
+          <span>BIT Node</span>
+        </div>
+        <p>A comprehensive educational platform for BIT Wardha students — exam prep, coding, tools, and community in one place.</p>
+        <div class="footer-socials">
+          <a href="https://t.me/ragexking" target="_blank" rel="noopener" title="Telegram"><i class="fab fa-telegram"></i></a>
+          <a href="https://instagram.com/spotify.piux" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://linkedin.com/in/piyushdeshkar" target="_blank" rel="noopener" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Exam Prep</h4>
+        <a href="mht-cet-law.html">MHT CET Law</a>
+        <a href="jee.html">JEE Main &amp; Advanced</a>
+        <a href="neet.html">NEET UG</a>
+        <a href="mht-cet-eng.html">MHT CET Engineering</a>
+        <a href="btech-cs.html">B.Tech CS (1–4 Year)</a>
+        <a href="bits-pilani.html">BITS Pilani (BITSAT)</a>
+      </div>
+      <div class="footer-section">
+        <h4>Coding &amp; Tech</h4>
+        <a href="coding-c.html">C Programming</a>
+        <a href="coding-java.html">Java Development</a>
+        <a href="coding-webdev.html">Web Development</a>
+        <a href="coding-python.html">Python</a>
+        <a href="coding-aiml.html">AI / ML</a>
+        <a href="coding-telegram.html">Telegram Bots</a>
+        <a href="coding-ruby.html">Ruby</a>
+        <a href="coding-hackathons.html">Hackathons</a>
+        <a href="coding-others.html">Others (C++, C#, more)</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact &amp; Links</h4>
+        <a href="mailto:support@bitnode.in"><i class="fas fa-envelope"></i> support@bitnode.in</a>
+        <a href="https://instagram.com/spotify.piux" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> @spotify.piux</a>
+        <a href="https://linkedin.com/in/piyushdeshkar" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> Piyush Deshkar</a>
+        <a href="https://t.me/ragexking" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> Buy a Course</a>
+        <p class="footer-address"><i class="fas fa-map-marker-alt"></i> BIT Wardha, Maharashtra</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 BIT Node · Developed by <strong>Piyush Deshkar</strong> for the BIT community &nbsp;·&nbsp; <a href="auth.html">Sign In</a> &nbsp;·&nbsp; <a href="#top">Back to Top ↑</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Firebase SDK -->
+<script type="module" src="firebase.js"></script>
+<!-- Main Script -->
+<script src="script.js"></script>
+</body>
+</html>
