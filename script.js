@@ -19,13 +19,12 @@ import {
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyD_4_adS0YQs8bGMbEvNSpLpW3BpCdvIAU",
-  authDomain: "mark1-7ce7e.firebaseapp.com",
-  projectId: "mark1-7ce7e",
-  storageBucket: "mark1-7ce7e.appspot.com",
-  messagingSenderId: "147908886392",
-  appId: "1:147908886392:web:7d209960ba65868172128d",
-  measurementId: "G-6J34J730EW"
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "","
 };
 
 const app = initializeApp(firebaseConfig);
