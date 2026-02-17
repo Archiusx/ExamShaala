@@ -295,3 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   console.log('✅ ExamShaala loaded');
 });
+// Protect dashboard page
+onAuthStateChanged(auth, (user) => {
+  if (!user && window.location.pathname.includes("index.html")) {
+    window.location.href = "/auth.html";
+  }
+});
